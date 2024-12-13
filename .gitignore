@@ -1,0 +1,5 @@
+# Node.js modules
+node_modules/
+
+# Fichiers de configuration sensibles (ex : variables d'environnement)
+.env
