@@ -1,12 +1,17 @@
 import express from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import cors from "cors"; 
 
 dotenv.config();
 
 const PORT = process.env.PORT || 8800;
 
 const app = express();
+
+// Middleware pour traiter les requêtes JSON et CORS
+app.use(cors()); // Autorise toutes les origines (à affiner en production)
+app.use(express.json()); // Permet de traiter les requêtes JSON
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -29,7 +34,7 @@ app.get("/books", (req,res)=>{
 })
 
 app.post("/books", (req, res) => {
-    const q = "INSERT INTO books (`title`, `desc`, `cover`) VALUES (?)"; // correction ici
+    const q = "INSERT INTO books (`title`, `desc`, `cover`) VALUES (?)"; 
     const values = [
         req.body.title, 
         req.body.desc,
